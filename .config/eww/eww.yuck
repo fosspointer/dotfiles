@@ -1,0 +1,62 @@
+(defwindow bar
+    :monitor 0
+    :windowtype "dock"
+    :wm-ignore false
+    :focusable false
+    :exclusive true
+    :stacking "fg"
+    :geometry (geometry
+        :y "10px"
+        :width "98%"
+        :height "32px"
+        :anchor "top center")
+    (box :halign "center" :orientation "h" :hexpand true
+        (workspaces)
+        (window)
+        (date)
+        (systray
+            :halign "end"
+            :spacing 10
+            :orientation "h"
+            :icon-size 20
+            :prepend-new: true
+        )
+    )
+)
+
+(defpoll date :interval "10s" `date +"%A %d %b %Y - %H:%M"`)
+(defwidget date []
+    (label :text "${date}"))
+
+(defvar workspace_names `{
+    "list": ["󰅩", "󰈹", "󰻞", "󰸳", "󰝚", "", "", "󰁥", "󰆧", ""] 
+}`)
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces.sh")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace.sh")
+
+(defwidget workspaces []
+    (eventbox :halign "start" :onscroll "bash ~/.config/eww/scripts/change-active-workspace.sh {} ${current_workspace}" :class "workspaces-widget"
+        (box :space-evenly true :spacing 16
+            (label :text "${workspaces}${current_workspace}" :visible false)
+            (for workspace in workspaces
+                (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                        (label :text "${workspace_names.list[workspace.id - 1]}")
+                    )
+                )
+            )
+        )
+    )
+  )
+
+(deflisten window_title :initial "..." "bash ~/.config/eww/scripts/get-window-title.sh")
+(defwidget window []
+    (label
+        :halign "fill"
+        :hexpand true
+        :limit-width 50
+        :unindent true
+        :justify "center"
+        :text "${window_title}")
+)

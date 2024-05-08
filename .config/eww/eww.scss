@@ -1,0 +1,29 @@
+* {
+    font-family: 'Symbols Nerd Font Mono'
+}
+
+.bar {
+    background-color: #121213;
+    font-family: 'Symbols Nerd Font Mono';
+    border-radius: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #F8F8F2;
+}
+
+.workspace-entry {
+    color: #44475A;
+    font-size: 20px;
+}
+
+.window_w {
+    font-size: 200px;
+}
+
+.occupied {
+    color: #6272A4;
+}
+
+.current {
+    color: #FF79C6;
+}
