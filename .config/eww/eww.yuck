@@ -10,23 +10,57 @@
         :width "98%"
         :height "32px"
         :anchor "top center")
-    (box :halign "center" :orientation "h" :hexpand true
+    (box
+        :spacing 16
+        :space-evenly false
+        :orientation "h"
         (workspaces)
         (window)
+        (keyboard)
+        (sound)
+        (storage)
+        (ram)
         (date)
+        (uptime)
         (systray
+            :class "padded"
             :halign "end"
             :spacing 10
             :orientation "h"
             :icon-size 20
-            :prepend-new: true
         )
     )
 )
 
+(defpoll sound :interval 50 `wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -c09-`)
+(defwidget sound []
+    (eventbox
+        :onscroll `bash ~/.config/eww/scripts/volume-adjust.sh {}`
+        (label :class "sound" :text " ${round(sound * 100.0, 0)}%")
+    )
+)
+
+(defpoll keyboard :interval 50 `hyprctl devices | grep "usb-usb-keyboard" -A 3 | grep "active keymap" | head -n1 | cut -f3 -d " " | cut -c1-2 | tr 'A-Z' 'a-z'`)
+(defwidget keyboard []
+    (eventbox
+        :onclick "notify-send hello"
+        (label :class "keyboard" :text " ${keyboard}")
+    )
+)
+
+(defpoll uptime :interval 1000 `uptime -p | awk -F 'up |,' '{print $2}'`)
+(defwidget uptime []
+    (label :class "uptime" :text " ${uptime}"))
+
+(defwidget ram []
+    (label :class "ram" :text ` ${round(EWW_RAM.used_mem_perc, 1)}% used`))
+
+(defwidget storage []
+    (label :class "storage" :text `󰆧 ${round(EWW_DISK["/"].used_perc, 1)}% used`))
+
 (defpoll date :interval "10s" `date +"%A %d %b %Y - %H:%M"`)
 (defwidget date []
-    (label :text "${date}"))
+    (label :class "date" :text " ${date}"))
 
 (defvar workspace_names `{
     "list": ["󰅩", "󰈹", "󰻞", "󰸳", "󰝚", "", "", "󰁥", "󰆧", ""] 
@@ -53,7 +87,7 @@
 (deflisten window_title :initial "..." "bash ~/.config/eww/scripts/get-window-title.sh")
 (defwidget window []
     (label
-        :halign "fill"
+        :halign "start"
         :hexpand true
         :limit-width 50
         :unindent true
