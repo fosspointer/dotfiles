@@ -1,5 +1,6 @@
 * {
     border-radius: 20px;
+    border: none;
 }
 
 window {
@@ -8,22 +9,23 @@ window {
     font-size: 24px;
     background-color: rgba(38, 41, 54, 0.85);
     color: rgb(248, 248, 242);
+    overflow: hidden;
 }
 
 #entry:selected {
-    border: 3px solid #FF79C6;
+    border: 3px solid rgba(248, 248, 242, 0.3);
     background-color: inherit;
     font-weight: bolder;
-}
-
-#text:selected {
-    color: rgb(255, 121, 198);
+    background: linear-gradient(90deg, rgba(255,121,198,1), rgba(139,233,253,1));
 }
 
 #input {
     border: 3px solid #BD93F9;
-    border-radius: 20px;
     background-color: rgba(68, 71, 90, 0.7);
     color: rgb(248, 248, 242);
     padding: 10px;
+}
+
+image {
+    margin: 0px 10px;
 }
