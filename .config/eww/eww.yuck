@@ -43,7 +43,8 @@
 (defpoll keyboard :interval 50 `hyprctl devices | grep "usb-usb-keyboard" -A 3 | grep "active keymap" | head -n1 | cut -f3 -d " " | cut -c1-2 | tr 'A-Z' 'a-z'`)
 (defwidget keyboard []
     (eventbox
-        :onclick "notify-send hello"
+        :onclick "hyprctl switchxkblayout usb-usb-keyboard next"
+        :onscroll "bash ~/.config/eww/scripts/change-keyboard-layout.sh {}"
         (label :class "keyboard" :text " ${keyboard}")
     )
 )
