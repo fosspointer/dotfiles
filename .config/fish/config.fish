@@ -21,5 +21,8 @@ function fish_prompt
     string join '' -- (set_color cyan) $USER (set_color magenta) '@' $hostname ' ' (set_color yellow) (date +"[%d/%m/%y-%H:%M:%S]") (set_color $status_color) \n (prompt_pwd) ' =» ' (set_color normal)
 end
 
+alias sudo doas
+
 zoxide init fish | source
 alias cd "z"
+alias vim "nvim"
