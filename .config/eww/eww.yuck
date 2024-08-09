@@ -36,6 +36,7 @@
 (defwidget sound []
     (eventbox
         :onscroll `bash ~/.config/eww/scripts/volume-adjust.sh {}`
+        :onclick "pavucontrol & disown"
         (label :class "sound" :text " ${round(sound * 100.0, 0)}%")
     )
 )
