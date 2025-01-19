@@ -1,7 +1,8 @@
 require("config.lazy")
 require("config.colorscheme")
 require("config.telescope")
-require("config.treesitter")
+require("config.lspconfig")
+require("config.nvim-cmp")
 
 vim.opt.number = true
 vim.opt.relativenumber = true

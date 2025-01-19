@@ -23,6 +23,7 @@ end
 
 alias sudo doas
 
+set -Ux MANPAGER "nvim +Man!"
 zoxide init fish | source
 alias cd "z"
 alias vim "nvim"
