@@ -1,0 +1,35 @@
+(defpoll workspaces
+    :interval 1
+    "fish -c ~/.config/eww/scripts/get_active_workspaces.fish")
+
+(defwidget workspaceWidget []
+    (box :halign "end"
+        (for workspace in workspaces
+            (label
+                :class "workspace ${workspace.urgent? "workspace-urgent": workspace.focused? "workspace-active": ""}"
+                :text "${workspace.name}")
+        )
+    )
+)
+
+(defwindow bar
+    :monitor 0
+    :geometry (geometry
+        :x "0%"
+        :y "0%"
+        :width "100%"
+        :height "30px"
+        :anchor "bottom center"
+    )
+    :stacking "fg"
+    :windowtype "normal"
+    :exclusive true
+    (box
+        (box :halign "start" :class "stats"
+            (label :text "RAM: ${round(EWW_RAM.used_mem_perc, 1)}%")
+            (label :text "CPU: ${round(EWW_CPU.avg, 1)}%")
+            (label :text "DISK: ${round(EWW_DISK["/"].used_perc, 1)}%")
+        )
+        (workspaceWidget)
+    )
+)

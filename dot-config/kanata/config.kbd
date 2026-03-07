@@ -1,0 +1,21 @@
+(defcfg
+    linux-dev /dev/input/by-id/usb-USB_USB_Keyboard-event-kbd
+    process-unmapped-keys yes)
+
+(defsrc
+    esc
+    caps
+)
+
+(deflayermap (base)
+    caps esc
+    esc @cw
+)
+
+(defalias
+    cw (caps-word-custom
+	2000
+	(a b c d e f g h i j k l m n o p q r s t u v w x y z -)
+	(bspc del up down left rght 0 1 2 3 4 5 6 7 8 9 lsft rsft)
+	)
+)

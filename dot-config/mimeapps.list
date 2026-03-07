@@ -1,0 +1,26 @@
+[Default Applications]
+x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/http=userapp-Floorp-MTOCK3.desktop
+x-scheme-handler/https=userapp-Floorp-MTOCK3.desktop
+x-scheme-handler/chrome=userapp-Floorp-MTOCK3.desktop
+text/html=userapp-Floorp-MTOCK3.desktop
+application/x-extension-htm=userapp-Floorp-MTOCK3.desktop
+application/x-extension-html=userapp-Floorp-MTOCK3.desktop
+application/x-extension-shtml=userapp-Floorp-MTOCK3.desktop
+application/xhtml+xml=userapp-Floorp-MTOCK3.desktop
+application/x-extension-xhtml=userapp-Floorp-MTOCK3.desktop
+application/x-extension-xht=userapp-Floorp-MTOCK3.desktop
+x-scheme-handler/sgnl=signal.desktop
+x-scheme-handler/signalcaptcha=signal.desktop
+
+[Added Associations]
+x-scheme-handler/http=userapp-Floorp-MTOCK3.desktop;
+x-scheme-handler/https=userapp-Floorp-MTOCK3.desktop;
+x-scheme-handler/chrome=userapp-Floorp-MTOCK3.desktop;
+text/html=userapp-Floorp-MTOCK3.desktop;
+application/x-extension-htm=userapp-Floorp-MTOCK3.desktop;
+application/x-extension-html=userapp-Floorp-MTOCK3.desktop;
+application/x-extension-shtml=userapp-Floorp-MTOCK3.desktop;
+application/xhtml+xml=userapp-Floorp-MTOCK3.desktop;
+application/x-extension-xhtml=userapp-Floorp-MTOCK3.desktop;
+application/x-extension-xht=userapp-Floorp-MTOCK3.desktop;

@@ -1,0 +1,215 @@
+# Catppuccin - Mocha 
+
+set $rosewater #f5e0dc
+set $flamingo #f2cdcd
+set $pink #f5c2e7
+set $mauve #cba6f7
+set $red #f38ba8
+set $maroon #eba0ac
+set $peach #fab387
+set $yellow #f9e2af
+set $green #a6e3a1
+set $teal #94e2d5
+set $sky #89dceb
+set $sapphire #74c7ec
+set $blue #89b4fa
+set $lavender #b4befe
+set $text #cdd6f4
+set $subtext1 #bac2de
+set $subtext0 #a6adc8
+set $overlay2 #9399b2
+set $overlay1 #7f849c
+set $overlay0 #6c7086
+set $surface2 #585b70
+set $surface1 #45475a
+set $surface0 #313244
+set $base #1e1e2e
+set $mantle #181825
+set $crust #11111b
+
+# Variables
+
+set $mod Mod4
+set $term kitty
+set $browser floorp
+set $filemanager thunar
+set $menu wofi --show run
+set $editor kitty nvim 
+set $music_visualizer kitty cava
+
+# Autostart
+
+exec mpc add /
+exec mpc random on
+exec kanata --cfg ~/.config/kanata/config.kbd
+exec signal-desktop &
+
+# Borders
+
+for_window [title="^.*$"] title_format ""
+default_border pixel 2
+
+# Gap
+
+gaps inner 10px
+
+# Colors
+
+client.focused              $lavender   $base   $text   $rosewater  $lavender
+client.focused_inactive     $overlay0   $base   $text   $rosewater  $overlay0
+client.unfocused            $overlay0   $base   $text   $rosewater  $peach 
+client.urgent               $peach      $base   $peach  $overlay0   $peach
+client.placeholder          $overlay0   $base   $text   $overlay0   $overlay0
+client.background           $base
+
+# Input-Output configuration
+
+output * bg ~/pictures/catppuccin.png fill
+output * mode 1920x1080@240Hz
+
+input type:keyboard {
+    xkb_layout "us,gr,us"
+    xkb_variant "altgr-intl,polytonic,rus"
+    xkb_options "compose:menu"
+    repeat_rate 30
+    repeat_delay 300
+}
+
+input * {
+    accel_profile "flat"
+}
+
+# Language keybinds
+
+bindsym --to-code {
+    $mod+x exec swaymsg input type:keyboard xkb_switch_layout 0
+    $mod+c exec swaymsg input type:keyboard xkb_switch_layout 1
+    $mod+v exec swaymsg input type:keyboard xkb_switch_layout 2
+}
+
+# Music keybinds
+
+bindsym --to-code {
+    $mod+Space exec mpc toggle
+    $mod+Backspace exec fish -c "~/.config/sway/show_music.fish"
+    $mod+Tab exec mpc volume +10
+    $mod+Shift+Tab exec mpc volume -10
+    $mod+Equal exec mpc next
+    $mod+Minus exec mpc prev
+}
+
+mode "music" bindsym --to-code {
+    h exec mpc prev
+    j exec mpc seekthrough +10
+    k exec mpc seekthrough -10
+    l exec mpc next
+    Space exec mpc toggle
+    v exec $music_visualizer
+
+    Return mode "default"
+    Escape mode "default"
+}
+
+for_window [title="cava"] {
+    resize set 600 400
+    floating enable
+}
+
+
+# Software keybinds
+
+bindsym --to-code {
+    $mod+Return exec $term
+    $mod+n exec $browser
+    $mod+m exec $filemanager
+    $mod+p exec vesktop
+
+    $mod+w kill
+    $mod+d exec $menu
+}
+
+# WM state control
+
+floating_modifier $mod normal
+
+bindsym --to-code {
+    $mod+Shift+c reload
+    $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+    $mod+h focus left
+    $mod+j focus down
+    $mod+k focus up
+    $mod+l focus right
+
+    $mod+Alt+h resize shrink width 25px
+    $mod+Alt+j resize grow height 25px
+    $mod+Alt+k resize shrink height 25px
+    $mod+Alt+l resize grow width 25px
+
+    $mod+ctrl+h move left 25px 
+    $mod+ctrl+j move down 25px 
+    $mod+ctrl+k move up 25px 
+    $mod+ctrl+l move right 25px 
+
+    $mod+1 workspace 1
+    $mod+2 workspace 2
+    $mod+3 workspace 3
+    $mod+4 workspace 4
+    $mod+5 workspace 5
+    $mod+6 workspace 6
+    $mod+7 workspace 7
+    $mod+8 workspace 8
+    $mod+9 workspace 9
+    $mod+0 workspace 10
+
+    $mod+Shift+1 move container to workspace 1
+    $mod+Shift+2 move container to workspace 2
+    $mod+Shift+3 move container to workspace 3
+    $mod+Shift+4 move container to workspace 4
+    $mod+Shift+5 move container to workspace 5
+    $mod+Shift+6 move container to workspace 6
+    $mod+Shift+7 move container to workspace 7
+    $mod+Shift+8 move container to workspace 8
+    $mod+Shift+9 move container to workspace 9
+    $mod+Shift+0 move container to workspace 10
+
+    $mod+y splith
+    $mod+u splitv
+    $mod+q layout toggle split
+
+    $mod+Alt+f fullscreen
+    $mod+e floating toggle
+    $mod+t focus mode_toggle
+    $mod+r mode "resize"
+    $mod+o mode "music"
+
+    $mod+slash exec cd ~/.config && $editor
+}
+
+mode "resize" bindsym --to-code {
+    h resize shrink width 25px
+    j resize grow height 25px
+    k resize shrink height 25px
+    l resize grow width 25px
+
+    Return mode "default"
+    Escape mode "default"
+}
+
+
+# Special keys to adjust volume via PulseAudio
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+# Special key to take a screenshot with grim
+bindsym Print exec grim
+
+# Screenshot
+
+bindsym --to-code {
+    $mod+shift+s exec 'fish -c "grim -g (stdbuf -oL slurp) -t png - | wl-copy -t image/png"'
+    $mod+Print exec 'grim -o ~/pictures/screenshots/(date +"%Y_%m_%d-%H:%M:%S")'
+}
+
+include /etc/sway/config.d/*

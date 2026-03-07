@@ -1,0 +1,7 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export MANPAGER:nvim\x20\x2bMan\x21
+SETUVAR --export SSH_AGENT_PID:33715
+SETUVAR --export SSH_AUTH_SOCK:/home/nephele/\x2essh/agent/s\x2eti2U5l95gk\x2eagent\x2eOdOvndZvsS
+SETUVAR __fish_initialized:4300
+SETUVAR fish_key_bindings:fish_default_key_bindings

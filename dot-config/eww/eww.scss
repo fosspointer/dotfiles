@@ -1,0 +1,37 @@
+.bar {
+  font-family: 'JetBrains Mono', monospace;
+  background: #9399b2;
+  color: #45475a; 
+  padding: 4px 2px;
+}
+
+.workspace {
+  margin-left: 3px;
+  padding: 0 8px;
+  background: #1e1e2e;
+  font-weight: 800;
+  color: #cdd6f4;
+}
+
+.workspace-active {
+  background: #cba6f7;
+  color: #45475a;
+}
+
+.workspace-urgent {
+  background: #f38ba8;
+  color: #45475a;
+}
+
+.stats {
+  margin-left: 3px;
+}
+
+.stats > * {
+  margin-right: 5px;
+  background: #45475a;
+  color: white;
+  font-weight: 600;
+  padding-left: 10px;
+  padding-right: 10px;
+}
